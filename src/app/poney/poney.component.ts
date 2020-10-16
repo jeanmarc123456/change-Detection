@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ColorService } from '../color.service';
 
 @Component({
   selector: 'app-poney',
@@ -9,9 +11,14 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 export class PoneyComponent implements OnInit {
 
   @Input() ponyModel;
-  constructor() { }
+   public color$: Observable<string>;
+
+  constructor(
+    private colorService: ColorService
+  ) { }
 
   ngOnInit(): void {
+    this.color$ = this.colorService.get();
   }
 
   public check() {
@@ -19,9 +26,9 @@ export class PoneyComponent implements OnInit {
   }
 
 
-  getPonyImageUrl() {
-    return `https://cdn.jsdelivr.net/gh/coderbase-it/angular-cd-pp@master/src/assets/images/pony-${this.ponyModel.color}-running.gif`;
-  }
+  // getPonyImageUrl() {
+  //   return `https://cdn.jsdelivr.net/gh/coderbase-it/angular-cd-pp@master/src/assets/images/pony-${this.ponyModel.color}-running.gif`;
+  // }
 
 
 }
